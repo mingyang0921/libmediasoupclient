@@ -737,13 +737,20 @@ namespace mediasoupclient
 		// m=application section.
 		if (!this->hasDataChannelMediaSection)
 		{
-			this->remoteSdp->RecvSctpAssociation();
-			auto sdpOffer = this->remoteSdp->GetSdp();
+			if (this->remoteSdp)
+			{
+				this->remoteSdp->RecvSctpAssociation();
+			}
+			if (this->remoteSdp)
+			{
+				auto sdpOffer = this->remoteSdp->GetSdp();
+				this->pc->SetRemoteDescription(PeerConnection::SdpType::OFFER, sdpOffer);
+			}
 
-			MSC_DEBUG("calling pc->setRemoteDescription() [offer:%s]", sdpOffer.c_str());
+			//MSC_DEBUG("calling pc->setRemoteDescription() [offer:%s]", sdpOffer.c_str());
 
 			// May throw.
-			this->pc->SetRemoteDescription(PeerConnection::SdpType::OFFER, sdpOffer);
+			//this->pc->SetRemoteDescription(PeerConnection::SdpType::OFFER, sdpOffer);
 
 			webrtc::PeerConnectionInterface::RTCOfferAnswerOptions options;
 			auto sdpAnswer = this->pc->CreateAnswer(options);

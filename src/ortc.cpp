@@ -759,7 +759,8 @@ namespace mediasoupclient
 
 			auto foundationIt = params.find("foundation");
 			auto priorityIt   = params.find("priority");
-            auto addressIt    = params.find("address");
+            //auto addressIt    = params.find("address");
+			auto addressIt    = params.find("ip");
 			auto protocolIt   = params.find("protocol");
 			auto portIt       = params.find("port");
 			auto typeIt       = params.find("type");
